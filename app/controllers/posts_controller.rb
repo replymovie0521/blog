@@ -1,0 +1,62 @@
+# coding: utf-8
+
+class PostsController < ApplicationController
+
+  # GET /posts
+  # GET /posts.json
+  # attr_accessible :name, :content, :title, :q
+  
+  def index
+    @search_form = SearchForm.new params[:search_form]
+    @posts = Post.scoped(:order => "created_at DESC", :limit => 3)
+    
+    if @search_form.q.present?
+       @posts= @posts.where(["title LIKE ? or content LIKE ?", "%#{@search_form.q}%", "%#{@search_form.q}%"])
+    end
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @posts }
+    end
+  end
+  
+  def show
+    @post = Post.find(params[:id])
+    @comment = Post.find(params[:id]).comments.build
+  end
+  
+  def new
+    @post = Post.new
+  end
+  
+  def create
+    @post = Post.new(params[:post])
+    if @post.save
+      redirect_to posts_path, notice: '作成されました！'
+    else
+      render action: 'new'
+    end
+  end
+  
+  def edit
+    @post = Post.find(params[:id])
+  end
+  
+  def update
+    @post = Post.find(params[:id])
+    if @post.update_attributes(params[:post])
+      redirect_to posts_path, notice: '更新されました！'
+    else
+      render action: 'edit'
+    end
+  end
+  
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    render json: { post: @post }
+  end
+
+
+
+end
