@@ -1,7 +1,5 @@
 Blog::Application.routes.draw do
 
-  devise_for :posts
-
   resources :posts do
     resources :comments
   end
