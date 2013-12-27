@@ -41,3 +41,8 @@ gem 'carrierwave'
 gem "meta_search"
 gem "will_paginate", "~> 3.0.pre2"
 gem "paperclip", "~> 3.0"
+
+gem 'devise'
+#omniauth
+gem 'omniauth-facebook'
+gem 'omniauth'
