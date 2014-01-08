@@ -2,6 +2,8 @@
 
 class PostsController < ApplicationController
 
+  before_filter :authenticate_user!
+
   # GET /posts
   # GET /posts.json
   # attr_accessible :name, :content, :title, :q
