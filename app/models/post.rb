@@ -11,5 +11,4 @@ class Post < ActiveRecord::Base
   scope :title_or_body_matches, lambda{|q|
     where 'title like :q or body like :q', :q => "%#{q}%"
   }
-
 end

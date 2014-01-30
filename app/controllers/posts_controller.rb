@@ -10,8 +10,8 @@ class PostsController < ApplicationController
   
   def index
     @search_form = SearchForm.new params[:search_form]
-    @posts = Post.scoped(:order => "created_at DESC", :limit => 3)
-    
+    @posts = Post.scoped(:order => "created_at DESC", :limit => 3).page(params[:page]).per(5)
+
     if @search_form.q.present?
        @posts= @posts.where(["title LIKE ? or content LIKE ?", "%#{@search_form.q}%", "%#{@search_form.q}%"])
     end
@@ -58,6 +58,23 @@ class PostsController < ApplicationController
     @post.destroy
     render json: { post: @post }
   end
+
+def year
+    @posts = Post.all(:order => "created_at DESC")
+    @post_years = @posts.group_by { |t| t.created_at.beginning_of_year }
+  end
+
+  def month
+    @posts = Post.all(:order => "created_at DESC")
+    @post_months = @posts.group_by { |t| t.created_at.beginning_of_month }
+  end
+
+  def day
+    @posts = Post.all(:order => "created_at DESC")
+    @post_days = @posts.group_by { |t| t.created_at.beginning_of_day }
+  end
+
+
 
 
 

@@ -6,6 +6,10 @@ Blog::Application.routes.draw do
     resources :comments
   end
 
+  match 'year' => 'posts#year'
+  match 'month' => 'posts#month'
+  match 'day' => 'posts#day'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

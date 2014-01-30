@@ -1,0 +1,19 @@
+<div id="notice"><%= notice %></div>
+
+<h1>年別アーカイブ一覧</h1>
+
+<div id="news">
+<ul>
+
+<% @post_years.each do |year, posts| %>
+<li>
+
+<% y = year.strftime("%Y年") %>
+<%= y %>
+(<%= posts.count %>)
+
+</li>
+<% end %>
+
+</ul>
+</div>
