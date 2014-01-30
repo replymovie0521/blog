@@ -10,7 +10,7 @@ class PostsController < ApplicationController
   
   def index
     @search_form = SearchForm.new params[:search_form]
-    @posts = Post.scoped(:order => "created_at DESC", :limit => 3).page(params[:page]).per(5)
+    @posts = Post.scoped(:order => "created_at DESC", :limit => 3)
 
     if @search_form.q.present?
        @posts= @posts.where(["title LIKE ? or content LIKE ?", "%#{@search_form.q}%", "%#{@search_form.q}%"])
